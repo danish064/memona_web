@@ -89,7 +89,6 @@ const password = ref("");
 const user_type = ref("staff");
 
 const loginUser = async () => {
-  // console.log("loginUser");
   console.log(email.value, password.value);
   const response = await fetch("http://localhost:3001/api/login", {
     method: "POST",
@@ -106,6 +105,7 @@ const loginUser = async () => {
   // console.log(responsejson);
   if (responsejson.status == "success") {
     user.value = responsejson.data;
+    await useGeneralStore().getEverything();
     // router.push("/dashboard");
     router.push("/");
   } else if (responsejson.status == "failed") {

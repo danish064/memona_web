@@ -1,7 +1,7 @@
 <template>
   <nav class="h-20 bg-primary">
     <div
-      class="h-full max-w-[1200px] mx-auto flex items-center justify-between"
+      class="h-full lg:p-0 px-10 max-w-[1200px] mx-auto flex items-center justify-between"
     >
       <router-link to="/">
         <div
@@ -11,40 +11,38 @@
         </div>
       </router-link>
 
-      <div class="flex items-center" id="example-navbar-warning">
-        <ul class="flex flex-col gap-x-6 lg:flex-row list-none lg:ml-auto">
-          <RouterLink
-            class="text-secondary text-lg hover:font-medium"
-            v-if="user && user.user_type === 'staff'"
-            to="/staff/complaints"
-            >Your Complaints</RouterLink
-          >
-          <RouterLink
-            class="text-secondary text-lg hover:font-medium"
-            v-if="user && user.user_type === 'staff'"
-            to="/staff/fileComplaint"
-            >File Complaint</RouterLink
-          >
-          <RouterLink
-            class="text-secondary text-lg font-md"
-            v-if="!user"
-            to="/login"
-            >Login</RouterLink
-          >
-          <RouterLink
-            class="text-secondary text-lg font-md"
-            v-if="!user"
-            to="/signup"
-            >Signup</RouterLink
-          >
-          <button
-            class="text-secondary text-lg font-md"
-            v-if="user"
-            @click="logout"
-          >
-            Logout
-          </button>
-        </ul>
+      <div class="relative flex gap-x-6 items-center " >
+        <RouterLink
+          class="text-secondary text-lg hover:font-medium"
+          v-if="user && user.user_type === 'staff'"
+          to="/staff/complaints"
+          >Your Complaints</RouterLink
+        >
+        <RouterLink
+          class="text-secondary text-lg hover:font-medium"
+          v-if="user && user.user_type === 'staff'"
+          to="/staff/fileComplaint"
+          >File a Complaint</RouterLink
+        >
+        <RouterLink
+          class="text-secondary text-lg font-md"
+          v-if="!user"
+          to="/login"
+          >Login</RouterLink
+        >
+        <RouterLink
+          class="text-secondary text-lg font-md"
+          v-if="!user"
+          to="/signup"
+          >Signup</RouterLink
+        >
+        <button
+          class="text-secondary text-lg font-md"
+          v-if="user"
+          @click="logout"
+        >
+          Logout
+        </button>
       </div>
     </div>
   </nav>

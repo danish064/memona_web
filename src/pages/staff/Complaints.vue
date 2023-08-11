@@ -6,6 +6,7 @@
         <div>Sr.</div>
         <div>Title</div>
         <div>Description</div>
+        <div>Type</div>
         <div>Status</div>
       </div>
       <div class="h-96 overflow-y-scroll">
@@ -21,6 +22,11 @@
             {{ complaint.description }}
           </div>
           <div>
+            {{ getCategory(complaint.category_id).category_name }}
+            <!-- {{ categories.find((cat) => cat.id == complaint.category_id) }} -->
+            <!-- {{ complaint.complaint_id }} -->
+          </div>
+          <div>
             {{ complaint.status }}
           </div>
         </div>
@@ -33,9 +39,13 @@ import { useGeneralStore } from "@/stores/useGeneral";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 useGeneralStore().getUserComplaints();
-const { user, userComplaints } = storeToRefs(useGeneralStore());
+useGeneralStore().getCategories();
+const { user, userComplaints, categories } = storeToRefs(useGeneralStore());
 // const complaints = ref([]);
 // console.log(user);
 // console.log(response);
 // complaints.value = response.data;
+const getCategory = (cat_id) => {
+  return categories.value.find((cat) => cat.category_id == cat_id);
+};
 </script>
