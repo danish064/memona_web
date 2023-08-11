@@ -2,14 +2,14 @@ import { defineStore } from "pinia";
 import { useRoute } from "vue-router";
 export const useGeneralStore = defineStore("general", {
   state: () => ({
-    user: null,
-    // user: {
-    //   user_id: 1,
-    //   name: "danish",
-    //   email: "danish@gmail.com",
-    //   user_type: "staff",
-    //   title: null,
-    // },
+    // user: null,
+    user: {
+      user_id: 1,
+      name: "danish",
+      email: "danish@gmail.com",
+      user_type: "staff",
+      title: null,
+    },
     userComplaints: [],
     categories: [],
   }),
