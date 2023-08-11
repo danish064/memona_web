@@ -22,14 +22,30 @@ const router = createRouter({
       name: "signup",
       component: () => import("@/pages/SignupPage.vue"),
     },
+    {
+      path: "/staff/fileComplaint",
+      name: "fileComplaint",
+      component: () => import("@/pages/staff/FileComplaint.vue"),
+    },
+    {
+      path: "/staff/complaints",
+      name: "staffComplaints",
+      component: () => import("@/pages/staff/Complaints.vue"),
+    },
+    {
+      path: "/staff/complaint/:id",
+      name: "staffComplaint",
+      component: () => import("@/pages/staff/Complaint.vue"),
+    },
   ],
 });
 router.beforeEach((to, from, next) => {
   const generalStore = useGeneralStore();
-  if (to.name !== "login" && to.name !== "signup" && !generalStore.user) {
-    next({ name: "login" });
-  } else {
-    next();
-  }
+  // if (to.name !== "login" && to.name !== "signup" && !generalStore.user) {
+  //   next({ name: "login" });
+  // } else {
+  //   next();
+  // }
+  next();
 });
 export default router;

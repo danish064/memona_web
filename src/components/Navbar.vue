@@ -1,36 +1,49 @@
 <template>
-  <nav
-    class="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow"
-  >
+  <nav class="h-20 bg-primary">
     <div
-      class="container px-4 mx-auto flex flex-wrap items-center justify-between"
+      class="h-full max-w-[1200px] mx-auto flex items-center justify-between"
     >
-      <div
-        class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
-      >
-        <router-link to="/">
-          <div
-            class="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
-          >
-            Vue Notus
-          </div>
-        </router-link>
-        <button
-          class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-          type="button"
+      <router-link to="/">
+        <div
+          class="text-secondary border-4 border-secondary px-2 py-1 text-lg font-bold leading-relaxed uppercase"
         >
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-      <!-- :class="[navbarOpen ? 'block' : 'hidden']" -->
-      <div
-        class="lg:flex flex-grow items-center"
-        id="example-navbar-warning"
-      >
+          HOME
+        </div>
+      </router-link>
+
+      <div class="flex items-center" id="example-navbar-warning">
         <ul class="flex flex-col gap-x-6 lg:flex-row list-none lg:ml-auto">
-          <RouterLink v-if="!user" to="/login">Login</RouterLink>
-          <RouterLink v-if="!user" to="/signup">Signup</RouterLink>
-          <button v-if="user" @click="logout">Logout</button>
+          <RouterLink
+            class="text-secondary text-lg font-md"
+            v-if="user && user.role === 'staff'"
+            to="/staff/complaints"
+            >Your Complaints</RouterLink
+          >
+          <RouterLink
+            class="text-secondary text-lg font-md"
+            v-if="user && user.role === 'staff'"
+            to="/staff/fileComplaint"
+            >File Complaint</RouterLink
+          >
+          <RouterLink
+            class="text-secondary text-lg font-md"
+            v-if="!user"
+            to="/login"
+            >Login</RouterLink
+          >
+          <RouterLink
+            class="text-secondary text-lg font-md"
+            v-if="!user"
+            to="/signup"
+            >Signup</RouterLink
+          >
+          <button
+            class="text-secondary text-lg font-md"
+            v-if="user"
+            @click="logout"
+          >
+            Logout
+          </button>
         </ul>
       </div>
     </div>
@@ -38,7 +51,6 @@
 </template>
 
 <script setup>
-import IndexDropdown from "@/components/Dropdowns/IndexDropdown.vue";
 import { storeToRefs } from "pinia";
 import { useGeneralStore } from "../stores/useGeneral";
 import { ref } from "vue";
