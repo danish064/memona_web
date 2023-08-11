@@ -1,6 +1,6 @@
 <template>
   <!-- <div>{{ user.role }}</div> -->
-  <UserHome v-if="user.role == 'staff'" />
+  <Home v-if="user.user_type == 'staff'" />
 
   <!-- <div v-if="!user.title" class="flex flex-col items-center justify-center">
     <div class="text-2xl">Select Role</div>
@@ -15,7 +15,7 @@
   </div> -->
 </template>
 <script setup>
-import UserHome from "../components/user/Home.vue";
+import Home from "@/components/user/Home.vue";
 import { storeToRefs } from "pinia";
 import { useGeneralStore } from "@/stores/useGeneral";
 import { ref, onMounted } from "vue";

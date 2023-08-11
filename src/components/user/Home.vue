@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center">
-    <div class="text-4xl">Hello {{ user.name }}</div>
+    <div class="text-4xl p-10 hover:italic cursor-pointer">Hello {{ user.username }}</div>
     <!-- <div>{{ user.role }}</div> -->
     <!-- <UserComplaints /> -->
   </div>

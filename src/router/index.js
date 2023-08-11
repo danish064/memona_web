@@ -41,11 +41,14 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   const generalStore = useGeneralStore();
-  // if (to.name !== "login" && to.name !== "signup" && !generalStore.user) {
-  //   next({ name: "login" });
-  // } else {
-  //   next();
-  // }
-  next();
+  if (!generalStore.user) {
+    if (to.name == "login" || to.name == "signup") {
+      next();
+    } else {
+      next({ name: "login" });
+    }
+  } else {
+    next();
+  }
 });
 export default router;

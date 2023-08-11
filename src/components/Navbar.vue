@@ -7,21 +7,21 @@
         <div
           class="text-secondary border-4 border-secondary px-2 py-1 text-lg font-bold leading-relaxed uppercase"
         >
-          HOME
+          JUW
         </div>
       </router-link>
 
       <div class="flex items-center" id="example-navbar-warning">
         <ul class="flex flex-col gap-x-6 lg:flex-row list-none lg:ml-auto">
           <RouterLink
-            class="text-secondary text-lg font-md"
-            v-if="user && user.role === 'staff'"
+            class="text-secondary text-lg hover:font-medium"
+            v-if="user && user.user_type === 'staff'"
             to="/staff/complaints"
             >Your Complaints</RouterLink
           >
           <RouterLink
-            class="text-secondary text-lg font-md"
-            v-if="user && user.role === 'staff'"
+            class="text-secondary text-lg hover:font-medium"
+            v-if="user && user.user_type === 'staff'"
             to="/staff/fileComplaint"
             >File Complaint</RouterLink
           >

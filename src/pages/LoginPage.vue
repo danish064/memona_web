@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto px-4 h-full">
+  <div class="mx-auto mt-20 px-4 h-full">
     <div class="flex content-center items-center justify-center h-full">
       <div class="w-full lg:w-4/12 px-4">
         <div
@@ -103,7 +103,7 @@ const loginUser = async () => {
     }),
   });
   const responsejson = await response.json();
-  console.log(responsejson);
+  // console.log(responsejson);
   if (responsejson.status == "success") {
     user.value = responsejson.data;
     // router.push("/dashboard");
