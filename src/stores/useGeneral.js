@@ -1,13 +1,14 @@
 import { defineStore } from "pinia";
 export const useGeneralStore = defineStore("general", {
   state: () => ({
-    user: {
-      user_id: 1,
-      username: "danish",
-      email: "danish@gmail.com",
-      user_type: "technician",
-      title: null,
-    },
+    user: null,
+    // user: {
+    //   user_id: 1,
+    //   username: "danish",
+    //   email: "danish@gmail.com",
+    //   user_type: "technician",
+    //   title: null,
+    // },
     userComplaints: [],
     categories: [],
   }),
