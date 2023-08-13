@@ -4,12 +4,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
+const technicianRoutes = require("./routes/technician");
+
 const connection = require("./db");
 const app = express();
 app.use(bodyParser.json());
 
 app.use(cors());
 app.use("/api", authRoutes);
+app.use("/api", technicianRoutes);
 
 app.get("/api/categories", async (req, res) => {
   const [categories, _] = await connection.query("SELECT * FROM categories");

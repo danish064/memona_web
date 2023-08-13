@@ -1,6 +1,6 @@
 <template>
   <!-- <div>{{ user.role }}</div> -->
-  <Home v-if="user.user_type == 'staff'" />
+  <!-- <Home v-if="user.user_type == 'staff' router.push('/user')" /> -->
 
   <!-- <div v-if="!user.title" class="flex flex-col items-center justify-center">
     <div class="text-2xl">Select Role</div>
@@ -15,10 +15,11 @@
   </div> -->
 </template>
 <script setup>
-import Home from "@/components/user/Home.vue";
 import { storeToRefs } from "pinia";
 import { useGeneralStore } from "@/stores/useGeneral";
 import { ref, onMounted } from "vue";
+import { useRouter, RouterLink } from "vue-router";
+const router = useRouter();
 const userTitle = ref("");
 const responsejson = ref([]);
 const { user } = storeToRefs(useGeneralStore());

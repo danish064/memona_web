@@ -1,13 +1,11 @@
 import { defineStore } from "pinia";
-import { useRoute } from "vue-router";
 export const useGeneralStore = defineStore("general", {
   state: () => ({
-    // user: null,
     user: {
       user_id: 1,
-      name: "danish",
+      username: "danish",
       email: "danish@gmail.com",
-      user_type: "staff",
+      user_type: "technician",
       title: null,
     },
     userComplaints: [],
@@ -16,7 +14,7 @@ export const useGeneralStore = defineStore("general", {
   actions: {
     logout() {
       this.user = null;
-      useRoute().push("/login");
+      this.router.push("/login");
     },
     async getEverything() {
       await this.getUserComplaints();

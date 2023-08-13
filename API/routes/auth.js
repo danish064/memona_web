@@ -9,6 +9,12 @@ const connection = require("../db");
 //   );
 //   return results[0].length > 0;
 // };
+const getTechnicianStatus = async (user_id) => {
+  const [rows, fields] = await connection.query(
+    `SELECT * FROM technician_assignments WHERE user_id='${user_id}'`
+  );
+  return rows.length > 0;
+};
 router.get("/auth_test", (req, res) => {
   res.send("Auth Test");
 });
@@ -22,7 +28,11 @@ router.post("/login", async (req, res) => {
     if (results[0].password == req.body.password) {
       let response = {
         status: "success",
-        data: results[0],
+        data: {
+          ...results[0],
+          is_technician: await getTechnicianStatus(results[0].id),
+          has_category: await getTechnicianStatus(results[0].id),
+        },
       };
       response = JSON.stringify(response);
       res.status(200).send(response);
@@ -37,11 +47,11 @@ router.post("/login", async (req, res) => {
   }
 });
 router.post("/signup", async (req, res) => {
-//   console.log(req.body);
+  //   console.log(req.body);
   const [results, _] = await connection.query(
     `SELECT * FROM users WHERE email='${req.body.email}' AND user_type='${req.body.user_type}'`
   );
-//   console.log(results);
+  //   console.log(results);
   if (results.length > 0) {
     res.status(200).send({ status: "failed", data: "Email Already Exist" });
   } else {

@@ -23,32 +23,63 @@ const router = createRouter({
       component: () => import("@/pages/SignupPage.vue"),
     },
     {
+      path: "/staff",
+      name: "staff",
+      component: () => import("@/pages/UserHomePage.vue"),
+    },
+    {
       path: "/staff/fileComplaint",
       name: "fileComplaint",
-      component: () => import("@/pages/staff/FileComplaint.vue"),
+      component: () => import("@/pages/staff/FileComplaintPage.vue"),
     },
     {
       path: "/staff/complaints",
       name: "staffComplaints",
-      component: () => import("@/pages/staff/Complaints.vue"),
+      component: () => import("@/pages/staff/ComplaintsPage.vue"),
     },
     {
       path: "/staff/complaints/:id",
       name: "staffComplaint",
-      component: () => import("@/pages/staff/Complaint.vue"),
+      component: () => import("@/pages/staff/ComplaintPage.vue"),
+    },
+    {
+      path: "/technician",
+      name: "technician",
+      component: () => import("@/pages/TechnicianHomePage.vue"),
     },
   ],
 });
 router.beforeEach((to, from, next) => {
-  const generalStore = useGeneralStore();
-  if (!generalStore.user) {
+  const { user } = useGeneralStore();
+  if (!user) {
     if (to.name == "login" || to.name == "signup") {
       next();
     } else {
       next({ name: "login" });
     }
   } else {
-    next();
+    if (to.path == "/") {
+      if (user.user_type == "staff") {
+        next({ path: "/staff" });
+      } else if (user.user_type == "technician") {
+        next({ path: "/technician" });
+      }
+    } else if (user.user_type == "staff" && to.path.includes("/technician")) {
+      next({ path: "/staff" });
+    } else if (user.user_type == "technician" && to.path.includes("/staff")) {
+      next({ path: "/technician" });
+    } else if (to.path == "/login" || to.path == "/signup") {
+      next({ path: "/" });
+    } else {
+      next();
+    }
+    // if (user.user_type == "staff" && to.path == "/") {
+    //   next({ path: "/staff" });
+    // } else if (user.user_type == "technician" && to.path == "/") {
+    //   next({ path: "/technician" });
+    // } else {
+    //   next();
+    // }
   }
 });
 export default router;
