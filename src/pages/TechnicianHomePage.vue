@@ -1,7 +1,7 @@
 <template>
   <div class="py-10 flex flex-col items-center">
     <div class="text-4xl font-medium">Technician</div>
-    <div v-if="!user.has_category">
+    <div v-if="user.categoty_id != null">
       <SelectCategory />
     </div>
     <div v-else>assigned</div>

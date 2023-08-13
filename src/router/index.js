@@ -47,6 +47,19 @@ const router = createRouter({
       name: "technician",
       component: () => import("@/pages/TechnicianHomePage.vue"),
     },
+    // {
+    //   path: "/technician/complaints",
+    //   name: "technicianComplaints",
+    //   component: () => import("@/pages/technician/ComplaintsPage.vue"),
+    // },
+    // {
+    //   path: "/technician/complaints/:id",
+    // }
+    {
+      path: "/technician/changeCategory",
+      name: "changeCategory",
+      component: () => import("@/pages/technician/ChangeCategoryPage.vue"),
+    },
   ],
 });
 router.beforeEach((to, from, next) => {

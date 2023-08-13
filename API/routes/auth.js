@@ -13,7 +13,12 @@ const getTechnicianStatus = async (user_id) => {
   const [rows, fields] = await connection.query(
     `SELECT * FROM technician_assignments WHERE user_id='${user_id}'`
   );
-  return rows.length > 0;
+  // return rows.length > 0;
+  if (rows.length > 0) {
+    return rows[0].category_id;
+  } else {
+    return null;
+  }
 };
 router.get("/auth_test", (req, res) => {
   res.send("Auth Test");
@@ -30,8 +35,7 @@ router.post("/login", async (req, res) => {
         status: "success",
         data: {
           ...results[0],
-          is_technician: await getTechnicianStatus(results[0].id),
-          has_category: await getTechnicianStatus(results[0].id),
+          category_id: await getTechnicianStatus(results[0].user_id),
         },
       };
       response = JSON.stringify(response);
