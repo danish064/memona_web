@@ -1,28 +1,27 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../db");
-// Define your route(s) here
 
-// const getTechnicianStatus = async (uid) => {
-//   const results = await connection.query(
-//     `SELECT * FROM technician_assignment WHERE uid='${uid}'`
-//   );
-//   return results[0].length > 0;
-// };
-const getTechnicianStatus = async (user_id) => {
+const getTechnicianCategory = async (user_id) => {
   const [rows, fields] = await connection.query(
     `SELECT * FROM technician_assignments WHERE user_id='${user_id}'`
   );
-  // return rows.length > 0;
   if (rows.length > 0) {
     return rows[0].category_id;
   } else {
     return null;
   }
 };
-router.get("/auth_test", (req, res) => {
-  res.send("Auth Test");
-});
+const getSupervisorcategory = async (user_id) => {
+  const [rows, fields] = await connection.query(
+    `SELECT * FROM supervisors WHERE user_id='${user_id}'`
+  );
+  if (rows.length > 0) {
+    return rows[0].category_id;
+  } else {
+    return null;
+  }
+};
 router.post("/login", async (req, res) => {
   console.log(req.body);
   const [rows, fields] = await connection.query(
@@ -35,9 +34,17 @@ router.post("/login", async (req, res) => {
         status: "success",
         data: {
           ...results[0],
-          category_id: await getTechnicianStatus(results[0].user_id),
         },
       };
+      if (results[0].user_type == "technician") {
+        response.data.category_id = await getTechnicianCategory(
+          results[0].user_id
+        );
+      } else if (results[0].user_type == "supervisor") {
+        response.data.category_id = await getSupervisorcategory(
+          results[0].user_id
+        );
+      }
       response = JSON.stringify(response);
       res.status(200).send(response);
     } else {
@@ -51,11 +58,9 @@ router.post("/login", async (req, res) => {
   }
 });
 router.post("/signup", async (req, res) => {
-  //   console.log(req.body);
   const [results, _] = await connection.query(
     `SELECT * FROM users WHERE email='${req.body.email}' AND user_type='${req.body.user_type}'`
   );
-  //   console.log(results);
   if (results.length > 0) {
     res.status(200).send({ status: "failed", data: "Email Already Exist" });
   } else {

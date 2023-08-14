@@ -62,6 +62,11 @@ const router = createRouter({
       name: "changeCategory",
       component: () => import("@/pages/technician/ChangeCategoryPage.vue"),
     },
+    {
+      path: "/supervisor",
+      name: "supervisor",
+      component: () => import("@/pages/SupervisorHomePage.vue"),
+    },
   ],
 });
 router.beforeEach((to, from, next) => {
@@ -78,11 +83,24 @@ router.beforeEach((to, from, next) => {
         next({ path: "/staff" });
       } else if (user.user_type == "technician") {
         next({ path: "/technician" });
+      } else if (user.user_type == "supervisor") {
+        next({ path: "/supervisor" });
       }
-    } else if (user.user_type == "staff" && to.path.includes("/technician")) {
+    } else if (
+      user.user_type == "staff" &&
+      (to.path.includes("/technician") || to.path.includes("/supervisor"))
+    ) {
       next({ path: "/staff" });
-    } else if (user.user_type == "technician" && to.path.includes("/staff")) {
+    } else if (
+      user.user_type == "technician" &&
+      (to.path.includes("/staff") || to.path.includes("/supervisor"))
+    ) {
       next({ path: "/technician" });
+    } else if (
+      user.user_type == "supervisor" &&
+      (to.path.includes("/staff") || to.path.includes("/technician"))
+    ) {
+      next({ path: "/supervisor" });
     } else if (to.path == "/login" || to.path == "/signup") {
       next({ path: "/" });
     } else {

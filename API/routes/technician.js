@@ -15,18 +15,12 @@ router.post("/technician/assign", async (req, res) => {
       `INSERT INTO technician_assignments (user_id, category_id) VALUES ('${req.body.user_id}', '${req.body.category_id}')`
     );
   }
-  //   console.log(result);
   res.send({ status: "success" });
 });
 router.post("/technician/complaints", async (req, res) => {
-  // console.log("Technician Complaints");
-  // const [complaints, _] = await connection.query(
-  //   `SELECT * FROM complaints WHERE assinged_to IS NULL`
-  // );
   const [complaints, _] = await connection.query(
     `SELECT * FROM complaints WHERE assinged_to='${req.body.user_id}'`
   );
-  // console.log("Complaints: ", complaints);
   res.send(complaints);
 });
 router.post("/technician/complaints/response", async (req, res) => {
@@ -37,7 +31,6 @@ router.post("/technician/complaints/response", async (req, res) => {
   console.log("Result: ", result);
   res.send({ status: "success" });
 });
-module.exports = router;
 
 router.post("/technician/complaints/mark_complete", async (req, res) => {
   console.log("Technician Complaints Mark Complete");
@@ -47,3 +40,5 @@ router.post("/technician/complaints/mark_complete", async (req, res) => {
   console.log("Result: ", result);
   res.send({ status: "success" });
 });
+
+module.exports = router;
