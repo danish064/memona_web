@@ -4,7 +4,7 @@
       <div class="flex items-center justify-center">
         <button
           @click="$router.push('/technician/complaints')"
-          class="px-2 py-1 rounded-lg border border-black bg-primary hover:bg-gray-600"
+          class="px-2 py-1 rounded-lg border border-black bg-primary hover:bg-orange-200"
         >
           back
         </button>
@@ -14,12 +14,12 @@
         <div
           class="flex items-center gap-x-2 p-2 rounded-lg border border-slate-600"
           :class="
-            complaint.status === 'pending' ? 'bg-primary' : 'bg-green-500'
+            complaint.status === 'pending' ? 'bg-primary' : 'bg-green-400'
           "
         >
           <div class="flex flex-col justify-between">
-            <div class="text-slate-700 font-bold">Status</div>
-            <div>
+            <div class="text-slate-700 font-bold cursor-default">Status</div>
+            <div class="cursor-default">
               {{ complaint.status }}
             </div>
           </div>
