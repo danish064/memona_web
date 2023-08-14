@@ -28,6 +28,23 @@ export const useGeneralStore = defineStore("general", {
       response = await response.json();
       this.userComplaints = response.data;
     },
+    async getTechnicianComplaints() {
+      let response = await fetch(
+        `http://localhost:3001/api/technician/complaints`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: this.user.user_id,
+            category_id: this.user.category_id,
+          }),
+        }
+      );
+      response = await response.json();
+      this.userComplaints = response;
+    },
     async getCategories() {
       let response = await fetch(`http://localhost:3001/api/categories`);
       response = await response.json();

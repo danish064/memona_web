@@ -47,14 +47,16 @@ const router = createRouter({
       name: "technician",
       component: () => import("@/pages/TechnicianHomePage.vue"),
     },
-    // {
-    //   path: "/technician/complaints",
-    //   name: "technicianComplaints",
-    //   component: () => import("@/pages/technician/ComplaintsPage.vue"),
-    // },
-    // {
-    //   path: "/technician/complaints/:id",
-    // }
+    {
+      path: "/technician/complaints",
+      name: "technicianComplaints",
+      component: () => import("@/pages/technician/ComplaintsPage.vue"),
+    },
+    {
+      path: "/technician/complaints/:id",
+      name: "technicianComplaint",
+      component: () => import("@/pages/technician/ComplaintPage.vue"),
+    },
     {
       path: "/technician/changeCategory",
       name: "changeCategory",

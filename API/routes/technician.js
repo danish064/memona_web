@@ -18,5 +18,32 @@ router.post("/technician/assign", async (req, res) => {
   //   console.log(result);
   res.send({ status: "success" });
 });
-
+router.post("/technician/complaints", async (req, res) => {
+  // console.log("Technician Complaints");
+  // const [complaints, _] = await connection.query(
+  //   `SELECT * FROM complaints WHERE assinged_to IS NULL`
+  // );
+  const [complaints, _] = await connection.query(
+    `SELECT * FROM complaints WHERE assinged_to='${req.body.user_id}'`
+  );
+  // console.log("Complaints: ", complaints);
+  res.send(complaints);
+});
+router.post("/technician/complaints/response", async (req, res) => {
+  console.log("Technician Complaints Response");
+  const [result, _] = await connection.query(
+    `UPDATE complaints SET response='${req.body.response}' WHERE complaint_id='${req.body.complaint_id}'`
+  );
+  console.log("Result: ", result);
+  res.send({ status: "success" });
+});
 module.exports = router;
+
+router.post("/technician/complaints/mark_complete", async (req, res) => {
+  console.log("Technician Complaints Mark Complete");
+  const [result, _] = await connection.query(
+    `UPDATE complaints SET status='completed' WHERE complaint_id='${req.body.complaint_id}'`
+  );
+  console.log("Result: ", result);
+  res.send({ status: "success" });
+});

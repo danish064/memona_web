@@ -32,6 +32,12 @@
           to="/technician/changeCategory"
           >Change Category</RouterLink
         >
+        <RouterLink
+          class="text-secondary text-lg hover:font-medium"
+          v-if="user && user.user_type === 'technician'"
+          to="/technician/complaints"
+          >View Complaints</RouterLink
+        >
         <!-- General Links -->
         <RouterLink
           class="text-secondary text-lg font-md"
