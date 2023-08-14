@@ -4,7 +4,7 @@
       <div class="flex items-center justify-center">
         <button
           @click="$router.push('/technician/complaints')"
-          class="px-2 py-1 rounded-lg border border-black hover:font-medium hover:border-2"
+          class="px-2 py-1 rounded-lg border border-black bg-primary hover:bg-gray-600"
         >
           back
         </button>
@@ -13,12 +13,18 @@
         </div>
         <div
           class="flex items-center gap-x-2 p-2 rounded-lg border border-slate-600"
+          :class="
+            complaint.status === 'pending' ? 'bg-primary' : 'bg-green-500'
+          "
         >
           <div class="flex flex-col justify-between">
             <div class="text-slate-700 font-bold">Status</div>
-            <div>{{ complaint.status }}</div>
+            <div>
+              {{ complaint.status }}
+            </div>
           </div>
           <button
+            v-if="complaint.status === 'pending'"
             class="text-white px-2 h-8 hover:bg-gray-600 text-[10px] bg-filler rounded-xl"
             @click="markComplaintAsComplete(complaint.complaint_id)"
           >
@@ -43,10 +49,6 @@
           Send
         </button>
       </div>
-      <!-- <div class="mt-10">
-        <div class="font-medium text-xl">Past Responses</div>
-        <div>Response</div>
-      </div> -->
       <Responses :response="complaint.response" />
     </div>
     <div v-else>Complaint page</div>
@@ -99,5 +101,6 @@ const sendResponse = async () => {
       }),
     }
   );
+  $router.push("/technician/complaints");
 };
 </script>

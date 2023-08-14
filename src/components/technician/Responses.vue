@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-10">
-    <div class="font-medium text-xl">Past Responses</div>
+  <div class="mt-10 flex justify-around">
+    <div class="font-medium text-xl">Past Response</div>
     <div>{{ response }}</div>
   </div>
 </template>
