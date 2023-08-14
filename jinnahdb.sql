@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2023 at 05:42 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Aug 14, 2023 at 09:02 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
@@ -56,19 +56,20 @@ CREATE TABLE `complaints` (
   `description` text NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'pending',
   `assinged_to` int(11) DEFAULT NULL,
+  `response` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `resolved_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `complaints`
 --
 
-INSERT INTO `complaints` (`complaint_id`, `user_id`, `category_id`, `title`, `description`, `status`, `assinged_to`, `created_at`, `resolved_at`) VALUES
-(6, 1, 1, 'a test complaint', 'blah blah blah', 'pending', NULL, '2023-08-11 12:01:53', NULL),
-(7, 1, 1, 'a test complaint', 'blah blah blah', 'pending', NULL, '2023-08-11 12:01:58', NULL),
-(8, 1, 1, 'a test complaint', 'blah blah blah', 'pending', NULL, '2023-08-11 12:01:41', NULL),
-(9, 1, 1, 'test complaint from web', 'desc', 'pending', NULL, '2023-08-11 16:00:09', NULL);
+INSERT INTO `complaints` (`complaint_id`, `user_id`, `category_id`, `title`, `description`, `status`, `assinged_to`, `response`, `created_at`, `resolved_at`) VALUES
+(6, 1, 1, 'a test complaint', 'blah blah blah', 'pending', NULL, '', '2023-08-11 12:01:53', NULL),
+(7, 1, 1, 'a test complaint', 'blah blah blah', 'pending', NULL, '', '2023-08-11 12:01:58', NULL),
+(8, 1, 1, 'a test complaint', 'blah blah blah', 'pending', NULL, '', '2023-08-11 12:01:41', NULL),
+(9, 1, 1, 'test complaint from web', 'desc', 'completed', 3, 'new response', '2023-08-14 18:10:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,26 @@ CREATE TABLE `responses` (
   `technician_id` int(11) NOT NULL,
   `response_text` varchar(255) NOT NULL,
   `response_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supervisors`
+--
+
+CREATE TABLE `supervisors` (
+  `supervisor_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `supervisors`
+--
+
+INSERT INTO `supervisors` (`supervisor_id`, `user_id`, `category_id`) VALUES
+(1, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -95,7 +115,14 @@ CREATE TABLE `technician_assignments` (
   `user_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `technician_assignments`
+--
+
+INSERT INTO `technician_assignments` (`technician_id`, `user_id`, `category_id`, `title`) VALUES
+(17, 3, 1, '');
 
 -- --------------------------------------------------------
 
@@ -109,7 +136,7 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `user_type` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -117,8 +144,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `email`, `username`, `password`, `user_type`) VALUES
 (1, 'danish@gmail.com', 'danish', '123', 'staff'),
-(3, 'd@g.com', 'Danish Ahmed', '123', 'technician'),
-(5, 'test@g.com', 'test', '123', 'staff'),
+(2, 'd@g.com', 'danish staff', '123', 'staff'),
+(3, 'd@g.com', 'Danish tech', '123', 'technician'),
+(4, 'd@g.com', 'danish super', '123', 'supervisor'),
 (6, 'dasd@dsa1', 'dasd', '12', 'staff'),
 (7, 'fasdf@fsd', 'fasdfdsf', '243', 'staff');
 
@@ -143,6 +171,12 @@ ALTER TABLE `complaints`
 --
 ALTER TABLE `responses`
   ADD PRIMARY KEY (`response_id`);
+
+--
+-- Indexes for table `supervisors`
+--
+ALTER TABLE `supervisors`
+  ADD PRIMARY KEY (`supervisor_id`);
 
 --
 -- Indexes for table `technician_assignments`
@@ -179,10 +213,22 @@ ALTER TABLE `responses`
   MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `supervisors`
+--
+ALTER TABLE `supervisors`
+  MODIFY `supervisor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `technician_assignments`
+--
+ALTER TABLE `technician_assignments`
+  MODIFY `technician_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
