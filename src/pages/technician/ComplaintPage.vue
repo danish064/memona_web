@@ -1,10 +1,10 @@
 <template>
-  <div class="mx-auto w-1/2 p-4">
+  <div class="mx-auto w-1/2 p-4 bg-secondary rounded-3xl text-white">
     <div v-if="complaint" class="text-center">
       <div class="flex items-center justify-center">
         <button
           @click="$router.push('/technician/complaints')"
-          class="px-2 py-1 rounded-lg border border-black bg-primary hover:bg-orange-200"
+          class="px-2 py-1 rounded-lg border border-white hover:bg-orange-200"
         >
           back
         </button>
@@ -13,12 +13,10 @@
         </div>
         <div
           class="flex items-center gap-x-2 p-2 rounded-lg border border-slate-600"
-          :class="
-            complaint.status === 'pending' ? 'bg-primary' : 'bg-green-400'
-          "
+          :class="complaint.status === 'pending' ? '' : 'bg-green-400'"
         >
           <div class="flex flex-col justify-between">
-            <div class="text-slate-700 font-bold cursor-default">Status</div>
+            <div class="font-bold cursor-default">Status</div>
             <div class="cursor-default">
               {{ complaint.status }}
             </div>
@@ -39,7 +37,7 @@
         <div class="font-medium text-xl">Respond to the complaint</div>
         <textarea
           v-model="response"
-          class="w-full max-h-20 my-6 p-4 rounded border border-filler outline-none"
+          class="w-full bg-inherit max-h-20 my-6 p-4 rounded border border-filler outline-none"
           placeholder="Enter your message here"
         />
         <button

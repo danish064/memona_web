@@ -10,7 +10,12 @@
           JUW
         </div>
       </router-link>
-
+      <div
+        v-if="user"
+        class="pl-32 uppercase font-medium text-2xl cursor-default"
+      >
+        {{ user.user_type }} portal
+      </div>
       <div class="relative flex gap-x-6 items-center">
         <!-- Staff links -->
         <RouterLink

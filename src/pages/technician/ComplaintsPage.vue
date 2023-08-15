@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto w-1/2 p-4">
+  <div class="mx-auto w-1/2 p-4 bg-secondary rounded-3xl text-white">
     <div class="text-center text-4xl font-medium p-10">Your Complaints</div>
     <div class="my-6 border border-filler py-4 rounded-xl">
       <div class="pl-4 pr-10 text-lg font-medium flex justify-between">
@@ -14,7 +14,7 @@
           :to="`/technician/complaints/${complaint.complaint_id}`"
           as="div"
           v-for="(complaint, index) in userComplaints"
-          :class="index % 2 === 0 ? 'bg-gray-200' : 'bg-white'"
+          :class="index % 2 === 0 ? 'bg-secondary' : 'bg-secondary'"
           class="px-4 py-2 flex justify-between hover:bg-gray-500 hover:text-white"
         >
           <div>{{ index + 1 }}</div>

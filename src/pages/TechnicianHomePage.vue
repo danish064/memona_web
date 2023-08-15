@@ -1,10 +1,12 @@
 <template>
   <div class="py-10 flex flex-col items-center">
-    <div class="text-4xl font-medium">Technician</div>
+    <div class="p-10 rounded-3xl text-4xl font-medium bg-secondary text-white">
+      Hello {{ user.username }}
+    </div>
     <div v-if="user.categoty_id != null">
       <SelectCategory />
     </div>
-    <div v-else>assigned</div>
+    <!-- <div v-else>assigned</div> -->
   </div>
 </template>
 <script setup>

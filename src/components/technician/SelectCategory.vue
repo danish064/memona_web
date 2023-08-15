@@ -1,20 +1,23 @@
 <template>
-  <div class="p-10">
-    <div class="text-xl mb-4">Select a category</div>
-    <div class="flex flex-col gap-y-6">
-      <div v-if="user.category_id != null">
-        <div>
-          Current category: {{ categories[user.category_id - 1].category_name }}
+  <div class="pt-20">
+    <div class="p-10 bg-secondary rounded-3xl text-white">
+      <div class="text-xl mb-4">Select a category</div>
+      <div class="flex flex-col gap-y-6">
+        <div v-if="user.category_id != null">
+          <div>
+            Current category:
+            {{ categories[user.category_id - 1].category_name }}
+          </div>
         </div>
+        <select v-model="technician_category" name="" id="" class="bg-secondary border border-white rounded-2xl p-1 px-2">
+          <option v-for="category in categories" :value="category.category_id">
+            {{ category.category_name }}
+          </option>
+        </select>
+        <button class="bg-primary rounded-lg" @click="handleSubmit">
+          Submit
+        </button>
       </div>
-      <select v-model="technician_category" name="" id="">
-        <option v-for="category in categories" :value="category.category_id">
-          {{ category.category_name }}
-        </option>
-      </select>
-      <button class="bg-primary rounded-lg" @click="handleSubmit">
-        Submit
-      </button>
     </div>
   </div>
 </template>
