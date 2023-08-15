@@ -85,8 +85,8 @@ const assignTechnician = async () => {
       }),
     }
   );
-    result = await result.json();
-    console.log(result);
-
+  result = await result.json();
+  console.log(result);
+  alert("Technician assigned successfully");
 };
 </script>
