@@ -43,6 +43,13 @@
           to="/technician/complaints"
           >View Complaints</RouterLink
         >
+        <!-- Supervisor link -->
+        <RouterLink
+          class="text-secondary text-lg hover:font-medium"
+          v-if="user && user.user_type === 'supervisor'"
+          to="/supervisor/complaints"
+          >New Complaints</RouterLink
+        >
         <!-- General Links -->
         <RouterLink
           class="text-secondary text-lg font-md"

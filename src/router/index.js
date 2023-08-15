@@ -67,6 +67,16 @@ const router = createRouter({
       name: "supervisor",
       component: () => import("@/pages/SupervisorHomePage.vue"),
     },
+    {
+      path: "/supervisor/complaints",
+      name: "supervisorComplaints",
+      component: () => import("@/pages/supervisor/ComplaintsPage.vue"),
+    },
+    {
+      path: "/supervisor/complaints/:id",
+      name: "supervisorComplaint",
+      component: () => import("@/pages/supervisor/ComplaintPage.vue"),
+    }
   ],
 });
 router.beforeEach((to, from, next) => {

@@ -45,6 +45,38 @@ export const useGeneralStore = defineStore("general", {
       response = await response.json();
       this.userComplaints = response;
     },
+    async getSupervisorComplaints() {
+      let response = await fetch(
+        `http://localhost:3001/api/supervisor/get_complaints`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            category_id: this.user.category_id,
+          }),
+        }
+      );
+      response = await response.json();
+      this.userComplaints = response;
+    },
+    async getAvailableTechnicians() {
+      let response = await fetch(
+        `http://localhost:3001/api/supervisor/get_technicians`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            category_id: this.user.category_id,
+          }),
+        }
+      );
+      response = await response.json();
+      return response;
+    },
     async getCategories() {
       let response = await fetch(`http://localhost:3001/api/categories`);
       response = await response.json();
