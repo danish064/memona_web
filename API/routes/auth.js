@@ -58,6 +58,7 @@ router.post("/login", async (req, res) => {
   }
 });
 router.post("/signup", async (req, res) => {
+  console.log(req.body);
   const [results, _] = await connection.query(
     `SELECT * FROM users WHERE email='${req.body.email}' AND user_type='${req.body.user_type}'`
   );

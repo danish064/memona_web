@@ -39,7 +39,7 @@
 import { useGeneralStore } from "@/stores/useGeneral";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-await useGeneralStore().getTechnicianComplaints();
+await useGeneralStore().getUserComplaints();
 await useGeneralStore().getCategories();
 const { user, userComplaints, categories } = storeToRefs(useGeneralStore());
 // const complaints = ref([]);

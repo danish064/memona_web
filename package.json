@@ -8,9 +8,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "pinia": "^2.1.4",
-    "vue": "^3.3.4",
-    "vue-router": "^4.2.4",
     "@fortawesome/fontawesome-free": "5.15.3",
     "@popperjs/core": "2.9.1",
     "@tailwindcss/forms": "0.2.1",
@@ -18,7 +15,11 @@
     "chart.js": "2.9.4",
     "core-js": "3.9.1",
     "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8"
+    "gulp-append-prepend": "1.0.8",
+    "pinia": "^2.1.4",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

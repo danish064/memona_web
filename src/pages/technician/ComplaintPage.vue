@@ -61,7 +61,7 @@ import { useRoute, useRouter } from "vue-router";
 const $route = useRoute();
 const $router = useRouter();
 const { user, userComplaints } = storeToRefs(useGeneralStore());
-await useGeneralStore().getTechnicianComplaints();
+await useGeneralStore().getUserComplaints();
 const complaint = ref(null);
 complaint.value = userComplaints.value.find((complaint) => {
   return complaint.complaint_id === Number($route.params.id);

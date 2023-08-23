@@ -83,41 +83,22 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const { user } = storeToRefs(useGeneralStore());
-// user.
 const email = ref("");
 const password = ref("");
 const user_type = ref("staff");
 
 const loginUser = async () => {
   console.log(email.value, password.value);
-  const response = await fetch("http://localhost:3001/api/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value,
-      user_type: user_type.value,
-    }),
-  });
-  const responsejson = await response.json();
-  // console.log(responsejson);
+  const responsejson = await useGeneralStore().login(
+    email.value,
+    password.value,
+    user_type.value
+  );
+  console.log(responsejson);
   if (responsejson.status == "success") {
-    user.value = responsejson.data;
-    await useGeneralStore().getEverything();
-    // router.push("/dashboard");
     router.push("/");
   } else if (responsejson.status == "failed") {
     alert(responsejson.data);
   }
 };
-
-// const bg_img = new URL("../assets/images/login_bg.gif", import.meta.url).href;
-// const bg_img_style = "background-image: url(" + bg_img + ");";
-//   backgroundImage: `url(${bg_img})`,
-//   backgroundSize: "cover",
-//   backgroundPosition: "center",
-//   backgroundRepeat: "no-repeat",
-// };
 </script>

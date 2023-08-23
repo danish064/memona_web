@@ -15,13 +15,59 @@ export const useGeneralStore = defineStore("general", {
   actions: {
     logout() {
       this.user = null;
+      this.userComplaints = [];
+      this.categories = [];
       this.router.push("/login");
+    },
+    async login(email, password, user_type) {
+      const response = await fetch("http://localhost:3001/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          user_type,
+        }),
+      });
+      const responsejson = await response.json();
+      if (responsejson.status === "success") {
+        this.user = responsejson.data;
+        await this.getEverything();
+      }
+      return responsejson;
+    },
+    async signup(name, email, password, user_type) {
+      const response = await fetch("http://localhost:3001/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          user_type,
+        }),
+      });
+      const responsejson = await response.json();
+      return responsejson;
     },
     async getEverything() {
       await this.getUserComplaints();
       await this.getCategories();
     },
     async getUserComplaints() {
+      if (this.user.user_type === "staff") {
+        await this.getStaffComplaints();
+      } else if (this.user.user_type === "technician") {
+        await this.getTechnicianComplaints();
+      } else if (this.user.user_type === "supervisor") {
+        await this.getSupervisorComplaints();
+      }
+    },
+    async getStaffComplaints() {
       let response = await fetch(
         `http://localhost:3001/api/${this.user.user_id}/complaints`
       );
@@ -83,4 +129,5 @@ export const useGeneralStore = defineStore("general", {
       this.categories = response;
     },
   },
+  persist: true,
 });

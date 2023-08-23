@@ -3,14 +3,14 @@
     <div class="text-white text-4xl p-10 hover:italic cursor-pointer">
       Hello {{ user.username }}
     </div>
-    <!-- <div>{{ user.role }}</div> -->
-    <!-- <UserComplaints /> -->
+    <ComplaintStatusTable />
   </div>
 </template>
 <script setup>
+import ComplaintStatusTable from "@/components/ComplaintStatusTable.vue";
 import { ref, onMounted } from "vue";
 import { useGeneralStore } from "@/stores/useGeneral";
 import { storeToRefs } from "pinia";
-const { user } = storeToRefs(useGeneralStore());
+const { user, userComplaints } = storeToRefs(useGeneralStore());
 </script>
-<style scoped></style>
+<style lang="postcss" scoped></style>

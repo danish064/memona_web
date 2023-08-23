@@ -86,6 +86,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useGeneralStore } from "../stores/useGeneral";
 
 const router = useRouter();
 
@@ -95,19 +96,24 @@ const password = ref("");
 const user_type = ref("staff");
 
 const signupUser = async () => {
-  const response = await fetch("http://localhost:3001/api/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name.value,
-      email: email.value,
-      password: password.value,
-      user_type: user_type.value,
-    }),
-  });
-  const responsejson = await response.json();
+  // const response = await fetch("http://localhost:3001/api/signup", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     name: name.value,
+  //     email: email.value,
+  //     password: password.value,
+  //     user_type: user_type.value,
+  //   }),
+  // });
+  const responsejson = await useGeneralStore().signup(
+    name.value,
+    email.value,
+    password.value,
+    user_type.value
+  );
   console.log(responsejson);
   if (responsejson.status == "success") {
     // user.value = responsejson.data;
